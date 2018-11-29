@@ -9,13 +9,13 @@ describe('Our first test', () => {
 });
 
 describe('index.html', () => {
-  it('should say hello', () => {
+  it('should have h1 that says Users', () => {
     const index = fs.readFileSync('./src/index.html', 'utf-8');
     const { JSDOM } = jsdom;
     const { window } = new JSDOM(index);
 
     const h1 = window.document.getElementsByTagName('h1')[0];
-    expect(h1.innerHTML).to.equal('Hello World!');
+    expect(h1.innerHTML).to.equal('Users');
     window.close();
   })
 })
