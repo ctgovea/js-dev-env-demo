@@ -12,6 +12,7 @@ function onSuccess(response){
   return response.json();
 }
 
+// Centralized error handling
 function onError(error){
   console.log(error);     // eslint-disable-line no-console
 }
