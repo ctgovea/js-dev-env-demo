@@ -11,6 +11,9 @@ import {schema} from './mockDataSchema';
 import fs from 'fs';
 import chalk from 'chalk';
 
+// With latest version of json-schema-faker, must explicitly extend JSF with the fake libs you want to use.
+jsf.extend('faker', () => require('faker'));
+
 const json = JSON.stringify(jsf.generate(schema));      // sync generate
 
 fs.writeFile('./src/api/db.json', json, function (err){
