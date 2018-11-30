@@ -4,15 +4,36 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 export default {
   devtool: 'source-map',
-  entry: [path.resolve(__dirname, 'src/index')],
+  entry: {
+    vendor: path.resolve(__dirname, 'src/vendor'),
+    main: path.resolve(__dirname, 'src/index')
+  },
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].js'   // uses the name defined in the entry section (vendor|main)
   },
   mode:"production",
+  // Webpack 4 removed the commonsChunkPlugin. Use optimization.splitChunks instead.
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    }
+  },
   plugins: [
+    // Use CommonChunkPlugin to create a separate bundle
+    // of vendor libraries so that they're cached separately.
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor'
+    // }),
+
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
       template: 'src/index.html',
