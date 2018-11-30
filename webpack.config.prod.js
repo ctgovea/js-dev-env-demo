@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import WebpackMd5Hash from 'webpack-md5-hash';
 
 export default {
   devtool: 'source-map',
@@ -12,7 +13,7 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js'   // uses the name defined in the entry section (vendor|main)
+    filename: '[name].[chunkhash].js'   // uses the name defined in the entry section (vendor|main)
   },
   mode:"production",
   // Webpack 4 removed the commonsChunkPlugin. Use optimization.splitChunks instead.
@@ -28,6 +29,8 @@ export default {
     }
   },
   plugins: [
+    new WebpackMd5Hash(),
+
     // Use CommonChunkPlugin to create a separate bundle
     // of vendor libraries so that they're cached separately.
     // new webpack.optimize.CommonsChunkPlugin({
