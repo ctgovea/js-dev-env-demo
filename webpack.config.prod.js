@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 export default {
   devtool: 'source-map',
@@ -10,16 +11,32 @@ export default {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  mode: 'development',
+  mode:"production",
   plugins: [
+    // Create HTML file that includes reference to bundled JS.
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      },
+      inject: true                  // inject any script tag needed.
+    }),
+
+    // Global loader configuration
     new webpack.LoaderOptionsPlugin({
+      minimize: true,
       debug: false,
       noInfo: true
     }),
-    // TODO Eliminate duplicate packages when generating bundle
-    // new webpack.optimize.DedupePlugin(),
-    // TODO Minify JS
-    // webpack.optimize.minimize
   ],
   module: {
     rules: [
