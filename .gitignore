@@ -59,11 +59,6 @@ typings/
 
 # next.js build output
 .next
-dist/main.060a50178a2f9d7bcf16.js
-dist/main.js
-dist/main.060a50178a2f9d7bcf16.js.map
-dist/main.js.map
-dist/vendor.js
-dist/vendor.442aa89e470ee15ff197.js
-dist/vendor.442aa89e470ee15ff197.js.map
-dist/vendor.js.map
+
+# dist files
+dist/
